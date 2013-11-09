@@ -24,16 +24,20 @@ var query_user = function(userName) {
 	});
 };
 
-var save_file = function(link, userName, thumbnail, latitude, longitude, date) {
+var save_thumbnail = function() {
+	var base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
+};
+
+var save_file = function(path, userName, thumbnail_path, latitude, longitude, date) {
 	var query = new Parse.Query(File);
-	query.equalTo('link', link);
+	query.equalTo('path', path);
 	query.find({
 		success: function(list) {
 			if (list.length === 1) {
 				list.forEach(function(elem, index, array) {
-					list[0].set('link', link);
+					list[0].set('path', path);
 					list[0].set('username', userName);
-					list[0].set('thumbnail', thumbnail);
+					list[0].set('thumbnail_path', thumbnail_path);
 					list[0].set('latitude', latitude);
 					list[0].set('longitude', longitude);
 					list[0].set('date', date);
@@ -41,15 +45,15 @@ var save_file = function(link, userName, thumbnail, latitude, longitude, date) {
 				});
 			} else if (list.length === 0) {
 				var file = new File();
-				file.set('link', link);
+				file.set('path', path);
 				file.set('username', userName);
-				file.set('thumbnail', thumbnail);
+				file.set('thumbnail_path', thumbnail_path);
 				file.set('latitude', latitude);
 				file.set('longitude', longitude);
 				file.set('date', date);
 				file.save(null, {
 					success: function (file) {
-						console.log('file saved... ' + file.get('link'));
+						console.log('file saved... ' + file.get('path'));
 					}
 				});
 			} else {
