@@ -6,33 +6,6 @@ var $ = require('jQuery');
 var User = Parse.Object.extend("myUser");
 var File = Parse.Object.extend("File");
 
-// var user_query = new Parse.Query(User);
-// 	user_query.equalTo('username', 'delta');
-// 	user_query.first({
-// 		success: function(user) {
-// 			var user_localities = user.get('localities');
-// 			var locality = 'london';
-// 			console.log('user = ' + (user_localities === undefined));
-
-// 						if (user_localities === undefined) {
-// 							var temp_obj = {};
-// 							temp_obj[locality] = 1;
-// 							user.set('localities', temp_obj);
-// 						} else if (user_localities[locality] === undefined) {
-// 							user_localities[locality] = 1;
-// 							user.set('locality', user_localities);
-// 						} else {
-// 							user_localities[locality] += 1;
-// 						}
-// 						user.save();
-// 		},
-// 		error: function(error) {
-// 			console.log('saving locality to user failed : ' + error.code + ' , msg[' + error.message + ']');
-// 		}
-// 	});
-
-
-
 
 
 var _get_reverse_geotag = function(latlng, file_id, username) {
