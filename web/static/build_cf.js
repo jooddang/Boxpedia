@@ -18,6 +18,7 @@ var _get_reverse_geotag = function(latlng, file_id, username) {
 		if (results === undefined) {
 			console.log('!!!!! google api : no results!!!! [' + data + '] file_id = ' + file_id);
 		}
+		console.log(data);
 		var locality = '', sublocality = '';
 		for (var i = 0; i < results.length; i++) {
 			var comp = results[i].address_components;
@@ -105,6 +106,7 @@ var build_reverse_geotag = function(username) {
 		file_query.equalTo('username', username);
 	} 
 	file_query.ascending('path');
+	file_query.exists('latitude');
 	file_query.count({
 		success: function (count) {
 			var query_skip = 0;
@@ -127,6 +129,8 @@ var build_reverse_geotag = function(username) {
 		}
 	});
 };
+
+build_reverse_geotag();
 
 
 // Build Collaborative Filter

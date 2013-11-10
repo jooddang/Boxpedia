@@ -24,6 +24,9 @@ account_info = None
 class index:
   def GET(self):
     return render.index()
+class map:
+  def GET(self):
+    return render.map()
 
 class code:
   def setCookie(self, auth_code):
@@ -58,14 +61,15 @@ class code:
     # p = Process(target=savePhotos, args=(access_token,))
     # p.start()
     # p.join()
-    subprocess.call(['python', '../saveToParse.py', access_token])
+    # subprocess.call(['python', '../saveToParse.py', access_token])
 
     return render.code()
 
 if __name__ == "__main__":
     urls = (
       '/', 'index',
-      '/code', 'code'
+      '/code', 'code',
+      '/map', 'map'
     )
     app = web.application(urls, globals())
     app.run()

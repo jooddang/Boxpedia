@@ -41,17 +41,20 @@ def savePhotos(access_token):
   # SEARCH IMAGE FILES
   image_search_res = []
   for file_extension in SEARCH_CRITERIA:
-    image_search_res.extend(db_client.search('/', file_extension))
+    image_search_res.extend(db_client.search('/iPhone/', file_extension))
   
   # images = []
+  print 'image search ........ ' , len(image_search_res)
   for img in image_search_res:
     photo = File.Query.filter(path=img['path'], username=account_info['email'])
-    if photo.count() == 1:
-      continue
-    photo = File(path=img['path'], username=account_info['email'], date=img['modified'])
-    userName = account_info['email']
-    path = img['path']
-    link = db_client.share(path)["url"] # TO BE USED LATER
+    # print 'path = ' ,  img['path']
+    if photo.count() == 0:
+      # print 'len  = ' , photo.count()
+      photo_s = File(path=img['path'], username=account_info['email'], date=img['modified'])
+      # userName = account_info['email']
+      # path = img['path']
+      # link = db_client.share(path)["url"] # TO BE USED LATER
+      photo_s.save()
     
     # START SAVE THUMBNAIL
     '''
@@ -71,7 +74,6 @@ def savePhotos(access_token):
       thumbnail = None
     # END SAVE THUMBNAIL
     '''
-    photo.save()
 
 if __name__ == '__main__':
   print 'args = ', sys.argv[1]

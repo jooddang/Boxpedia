@@ -1,4 +1,3 @@
-
 var User = Parse.Object.extend("myUser");
 var File = Parse.Object.extend("File");
 
@@ -65,20 +64,20 @@ var save_file = function(path, userName, thumbnail_path, latitude, longitude, da
 };
 
 var save_latlng = function(path, latitude, longitude) {
-	console.log('in save_latlng.... path=' + path + '  lat[' + latitude + '] long[' + longitude + ']');
 	var query = new Parse.Query(File);
 	query.equalTo('path', path);
+	query.doesNotExist('latitude');
 	query.find({
 		success: function(list) {
 			if (list.length === 1) {
-				// list.forEach(function(elem, index, array) {
-					console.log(' list length = 1.........   ' + list[0]);
+
 					list[0].set('path', path);
 					list[0].set('latitude', latitude);
 					list[0].set('longitude', longitude);
 					list[0].save();
-				// });
+
 			} else if (list.length === 0) {
+				console.log('length = 0');
 				var file = new File();
 				file.set('path', path);
 				file.set('latitude', latitude);
@@ -86,9 +85,6 @@ var save_latlng = function(path, latitude, longitude) {
 				file.save(null, {
 					success: function (file) {
 						console.log('file saved... ' + file.get('path'));
-					},
-					error: function(error) {
-						console.log('file save failed :' + error.code + '   msg = ' + error.message);
 					}
 				});
 			} else {

@@ -15,6 +15,7 @@ function init() {
 }
 
 //  IMPORT
+// jpeg parser to extract tag
 var $j = JpegMeta.JpegFile;
 
 function main() {
@@ -26,24 +27,29 @@ function main() {
     var reader = new FileReader();
     var allfiles = e.target.files;
     $.each(allfiles, function(i, item) {
-      if(item.name.indexOf(".jpg")>=0 || item.name.indexOf(".png")>=0 || item.name.indexOf(".JPG")>=0 || item.name.indexOf(".PNG")>=0)
+      if(item.name.indexOf(".jpg")>=0 || item.name.indexOf(".JPG")>=0)
       // console.log(item);
-      files.push(item);
+        files.push(item);
     });
 
+    var j = 0;
     for(var i=0;i<files.length;i++) {
       // var tempImage = new Image();
       // tempImage.src = files[i].name;
       // EXIF.getData(tempImage, function() {
       //   console.log(EXIF.getAllTags(tempImage));
       // });
-      
+      // console.log('i.........' + i);
       var reader = new FileReader();
       reader.onload = function(e) {
+        // data = binary of an image
         var data = e.target.result;
         var jpeg = new $j(data, files[i]);
         if (jpeg.gps && jpeg.gps.longitude) {
-          console.log(jpeg.gps.latitude + ", " + jpeg.gps.longitude);
+          // console.log('in loop : ' + j);
+          // console.log(files[j].webkitRelativePath + ", " + jpeg.gps.latitude + ", " + jpeg.gps.longitude);
+          save_latlng(files[j].webkitRelativePath, jpeg.gps.latitude.value, jpeg.gps.longitude.value);
+          j += 1;
         }
       };
 
