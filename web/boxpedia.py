@@ -11,7 +11,7 @@ APP_SECRET = '3hfs6haa2we691w'
 db_client = None
 auth_code = ''
 access_token = ''
-SEARCH_CRITERIA = ['.abc']#['jpg', '.png']
+SEARCH_CRITERIA = ['.jpg', '.png']
 FILE_LIMIT = 1000
 THUMBNAIL_SIZE = 'small'
 # END CONSTANTS
