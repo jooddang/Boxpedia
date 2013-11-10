@@ -3,7 +3,6 @@ import os
 import dropbox
 import requests
 import json
-import exifread
 
 # START CONSTANTS
 APP_KEY = '4jhdfov09fjy323'
