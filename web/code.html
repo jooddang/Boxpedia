@@ -1,19 +1,40 @@
-$def with ()
-    <html>
-        <head>
-            <title>
-                Geo Geo Box
-            </title>
-        </head>
-        <body>
-            <div id="container">
-                <!-- TODO:READ EXIF USING JS -->
-                <input type="file" id="directory-selector" name="directory[]" webkitdirectory directory />
+$def with()
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <title>Boxpedia</title>
+      <link href="./static/css/bootstrap.css" rel="stylesheet">
+      <link href="./static/css/stylish-portfolio.css" rel="stylesheet">
+      <link href="./static/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    </head>
+    <body>
+      
+      <div id="top" class="header">
+        <div class="vert-text">
+          <label id="dir-btn" for="directory-selector" class="btn btn-default btn-lg">Choose your Dropbox Folder.</label>
+          <input type="file" id="directory-selector" name="directory[]" webkitdirectory directory />
+        </div>
+      </div>
+
+      <footer>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 col-md-offset-3 text-center">
+              <div class="top-scroll">
+                <a href="#top"><i class="fa fa-circle-arrow-up scroll fa-4x"></i></a>
+              </div>
+              <hr>
+              <p>Copyright &copy; Boxpedia 2013</p>
             </div>
-        </body>
-        <script src="./static/jquery-2.0.3.min.js"></script>
-        <script src="./static/binaryajax.js"></script>
-        <!--<script src="./static/exif.js"></script>-->
-        <script src="./static/jpegmeta.js"></script>
-        <script src="./static/ready.js"></script>
-    </html>
+          </div>
+        </div>
+      </footer>
+    </body>
+    <script src="./static/jquery-1.10.2.min.js"></script>
+    <script src="./static/bootstrap.js"></script>
+    <script src="./static/jpegmeta.js"></script>
+    <script src="./static/ready.js"></script>
+  </html>

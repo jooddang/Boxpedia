@@ -117,9 +117,9 @@ class code:
     # pool = Pool(processes=1)
     # result = pool.apply_async(savePhotos, [access_token])
     # print 'pool result = ', result.get()
-    p = Process(target=savePhotos, args=(access_token,))
-    p.start()
-    p.join()
+    # p = Process(target=savePhotos, args=(access_token,))
+    # p.start()
+    # p.join()
 
     return render.code()
 
