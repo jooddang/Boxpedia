@@ -15,7 +15,7 @@ function initialize() {
 
 	map = new google.maps.Map(document.getElementById("map-canvas"),
 		    mapOptions);	
-	// var geocoder = new google.maps.Geocoder();
+	var geocoder = new google.maps.Geocoder();
 
 	var File = Parse.Object.extend("File");
 	var ll_query = new Parse.Query(File);
