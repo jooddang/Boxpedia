@@ -4,30 +4,53 @@ var SETTINGS_SCRIPT = "./static/settings.js";
 
 //  START GLOBAL VARIABLES
 var db_directory = "";
-var allfiles = [];
+var files = [];
 var exifInfo = [];
 //  END GLOBAL VARIABLES
 
 function init() {
-  //  START EVENT HANDLERS
-  $('#directory-selector').change(function(e) {
-    var reader = new FileReader();
-    var thefiles = e.target.files;
-    $.each(thefiles, function(i, item) {
-      allfiles.push(item);
-    });
-  });
-
-  //  END EVENT HANDLERS
-
   $.getScript(SETTINGS_SCRIPT, function(){
     main();
   });
 }
 
+//  IMPORT
+var $j = JpegMeta.JpegFile;
+
 function main() {
   //  OPEN DIRECTORY PICKER
-  
+  //  TODO
+
+  //  READ IMAGE FILES
+  $('#directory-selector').change(function(e) {
+    var reader = new FileReader();
+    var allfiles = e.target.files;
+    $.each(allfiles, function(i, item) {
+      if(item.name.indexOf(".jpg")>=0 || item.name.indexOf(".png")>=0 || item.name.indexOf(".JPG")>=0 || item.name.indexOf(".PNG")>=0)
+      // console.log(item);
+      files.push(item);
+    });
+
+    for(var i=0;i<files.length;i++) {
+      // var tempImage = new Image();
+      // tempImage.src = files[i].name;
+      // EXIF.getData(tempImage, function() {
+      //   console.log(EXIF.getAllTags(tempImage));
+      // });
+      
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        var data = e.target.result;
+        var jpeg = new $j(data, files[i]);
+        if (jpeg.gps && jpeg.gps.longitude) {
+          console.log(jpeg.gps.latitude + ", " + jpeg.gps.longitude);
+        }
+      };
+
+      reader.readAsBinaryString(files[i]);
+      // loadFiles(files);
+    }
+  });
 }
 
 if (parent) {

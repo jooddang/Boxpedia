@@ -10,7 +10,7 @@ APP_SECRET = '3hfs6haa2we691w'
 db_client = None
 auth_code = ''
 access_token = ''
-SEARCH_CRITERIA = ['.jpg', '.png']
+SEARCH_CRITERIA = ['.jpg', '.png', '.JPG', '.PNG']
 FILE_LIMIT = 1000
 THUMBNAIL_SIZE = 'small'
 # END CONSTANTS
@@ -25,17 +25,29 @@ class index:
     return render.index()
 
 class code:
-  def GET(self):
-    # GET AUTH CODE
-    get_input = web.input(_method='get')
-    auth_code = get_input.code
-
-    # GET AUTH TOKEN AND INSTANTIATE DROPBOX CLIENT
+  def setCookie(self, auth_code):
     post_data = {'code':auth_code, 'grant_type':'authorization_code', 'client_id':APP_KEY, 'client_secret':APP_SECRET, 'redirect_uri':'http://localhost:8080/code'}
     post_response = requests.post(url='https://api.dropbox.com/1/oauth2/token', data=post_data)
     access_Obj = json.loads(post_response.content)
+    # if 'access_token' in access_Obj:
     access_token = access_Obj['access_token']
+    web.setcookie('mytoken', access_token)
+
+  def GET(self):
+    # GET AUTH CODE
+    get_input = web.input(_method='get')
+    if code in get_input:
+      auth_code = get_input.code
+
+    # GET AUTH TOKEN AND INSTANTIATE DROPBOX CLIENT
+    # if (access_token == None) :
+    access_token = web.cookies().get('mytoken')
+    if (access_token == None):
+      self.setCookie(auth_code)
+      access_token = web.cookies().get('mytoken')
+    print 'access_token =====', access_token
     db_client = dropbox.client.DropboxClient(access_token)
+    print db_client
 
     # GET USER'S BASIC INFORMATION
     account_info = db_client.account_info()
@@ -47,6 +59,7 @@ class code:
     
     images = []
     for img in image_search_res:
+      break
       userName = account_info['email']
       path = img['path']
       date = img['modified']

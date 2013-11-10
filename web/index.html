@@ -10,4 +10,36 @@ $def with ()
     			<div id="sign-in-button"><a href="https://www.dropbox.com/1/oauth2/authorize?response_type=code&client_id=4jhdfov09fjy323&redirect_uri=http://localhost:8080/code">click here to login</a></div>
     		</div>
     	</body>
+        <script src="./static/jquery-1.10.2.min.js"></script>
+        <script src="./static/jquery.cookie.js"></script>
+        <script>
+
+        function getCookie(c_name)
+        {
+        var c_value = document.cookie;
+        var c_start = c_value.indexOf(" " + c_name + "=");
+        if (c_start == -1)
+          {
+          c_start = c_value.indexOf(c_name + "=");
+          }
+        if (c_start == -1)
+          {
+          c_value = null;
+          }
+        else
+          {
+          c_start = c_value.indexOf("=", c_start) + 1;
+          var c_end = c_value.indexOf(";", c_start);
+          if (c_end == -1)
+          {
+        c_end = c_value.length;
+        }
+        c_value = unescape(c_value.substring(c_start,c_end));
+        }
+        return c_value;
+        }
+            if(getCookie("mytoken")!=null) {
+                location.replace('http://localhost:8080/code');
+            }
+        </script>
     </html>
